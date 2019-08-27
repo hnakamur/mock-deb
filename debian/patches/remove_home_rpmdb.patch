@@ -9,8 +9,8 @@ install fails.
 Remove this directory.
 
 --- a/py/mockbuild/buildroot.py
-+++ b/yp/mockbuild/buildroot.py
-@@ -221,6 +221,10 @@ class Buildroot(object):
++++ b/py/mockbuild/buildroot.py
+@@ -267,6 +267,10 @@
  
          self.doChroot(['/usr/sbin/groupadd', '-g', dets['gid'], dets['group']],
                        shell=False, nosync=True)

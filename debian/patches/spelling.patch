@@ -9,7 +9,7 @@ Subject: spelling and minus/hyphen fixes in man pages
 
 --- a/docs/mock.1
 +++ b/docs/mock.1
-@@ -58,12 +58,12 @@ The content of a chroot is specified by
+@@ -58,12 +58,12 @@
  \fB\-r\fR option. The default configuration file is /etc/mock/default.cfg,
  which is usually a symlink to one of the installed configurations.
  .LP
@@ -24,7 +24,7 @@ Subject: spelling and minus/hyphen fixes in man pages
  etc.) without leading '\-\-' are still accepted, but are deprecated. See
  COMMANDS section, below, for detailed listing of all commands.
  .LP
-@@ -97,7 +97,7 @@ Run the specified command non\-interacti
+@@ -101,7 +101,7 @@
  .TP
  \fB\-\-dnf\-cmd\fP
  Execute following arguments with DNF with installroot set to the chroot path. DNF must be installed on the system.
@@ -33,7 +33,7 @@ Subject: spelling and minus/hyphen fixes in man pages
  This option will enforce \-\-dnf.
  .TP
  \fB\-\-init\fP
-@@ -177,8 +177,8 @@ that might have been a LVM volume or TMP
+@@ -181,8 +181,8 @@
  .TP
  \fB\-\-yum\-cmd\fP
  Execute following arguments with YUM with installroot set to the chroot path. Yum must be installed on the system.
@@ -44,7 +44,7 @@ Subject: spelling and minus/hyphen fixes in man pages
  This option will enforce \-\-yum.
  .TP
  Note: While you can specify more commands on command line, only one can be executed. The last command will win.
-@@ -215,7 +215,7 @@ Pass \fB\-\-disablerepo\fR option to pac
+@@ -219,7 +219,7 @@
  It can be specified multiple times.
  .TP
  \fB\-\-dnf\fR
@@ -53,7 +53,7 @@ Subject: spelling and minus/hyphen fixes in man pages
  .TP
  \fB\-\-enable\-plugin\fR=\fIPLUGIN\fP
  Enable the specified plugin.  This option may be used multiple times.
-@@ -354,9 +354,9 @@ To build a package from the default SCM
+@@ -358,9 +358,9 @@
  To build execute command inside of chroot.
  .LP
  .RS 5
@@ -65,7 +65,7 @@ Subject: spelling and minus/hyphen fixes in man pages
  .RE
  .LP
  To build rawhide package using yum:
-@@ -368,13 +368,13 @@ To build rawhide package using yum:
+@@ -372,13 +372,13 @@
  Query rpm database inside chroot using Yum:
  .LP
  .RS 5
@@ -92,7 +92,7 @@ Subject: spelling and minus/hyphen fixes in man pages
  .SH "DESCRIPTION"
  .PP
  \fBmockchain\fP builds a series of srpms in mock one at a time. After each 
-@@ -11,10 +11,10 @@ successful build of a package it adds th
+@@ -11,10 +11,10 @@
  repo which are available to the next package to satisfy buildreqs.
  .SH "USAGE NOTES"
  .PP
@@ -105,7 +105,7 @@ Subject: spelling and minus/hyphen fixes in man pages
  already been successfully built will not be built again.
  .PP
  If you want to force the rebuild of a package which has been built 
-@@ -25,12 +25,13 @@ the package in the localrepo path.
+@@ -25,12 +25,13 @@
  .TP
  \fB\-a\fR REPOS, \fB\-\-addrepo\fR=\fIREPOS\fR
  add this repo baseurl to the yumconfig for the chroot. This can
@@ -121,7 +121,7 @@ Subject: spelling and minus/hyphen fixes in man pages
  
  .TP
  \fB\-l\fR LOCALREPO, \fB\-\-localrepo\fR=\fIPATH\fR
-@@ -41,7 +42,7 @@ mock process doesn't run as you. Will ma
+@@ -41,7 +42,7 @@
  .TP
  \fB\-\-log\fR=\fILOGFILE\fR
  log to the file named by this option, defaults to not
@@ -130,7 +130,7 @@ Subject: spelling and minus/hyphen fixes in man pages
  
  .TP
  \fB\-m\fR OPTION, \fB\-\-mock-option\fR=\fIOPTION\fR
-@@ -51,13 +52,13 @@ pass the OPTION to mock. Can be used sev
+@@ -51,13 +52,13 @@
  
  .TP
  \fB\-r\fR CONFIG, \fB\-\-root\fR=\fICONFIG\fR
