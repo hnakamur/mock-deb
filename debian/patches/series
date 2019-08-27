@@ -7,3 +7,4 @@ python3.patch
 no_dnf.patch
 console_helper_path.patch
 gpg_keys_path.patch
+add_chrootuser_and_chrootgroup_config.patch

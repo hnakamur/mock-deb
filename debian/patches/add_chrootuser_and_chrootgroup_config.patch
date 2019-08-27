@@ -1,0 +1,44 @@
+diff --git a/etc/mock/site-defaults.cfg b/etc/mock/site-defaults.cfg
+index 8c2c6f6..62ff638 100644
+--- a/etc/mock/site-defaults.cfg
++++ b/etc/mock/site-defaults.cfg
+@@ -296,6 +296,10 @@
+ # name in this line of the mock PAM config:
+ #   auth  sufficient pam_succeed_if.so user ingroup mock use_uid quiet
+ # config_opts['chrootgid'] = grp.getgrnam("mock")[2]
++# name of user that is used when executing commands inside the chroot
++# config_opts['chrootuser'] = 'mockbuild'
++# name of the group inside of chroot
++# config_opts['chrootgroup'] = 'mock'
+ 
+ # config_opts['useradd'] = '/usr/sbin/useradd -m -u %(uid)s -g %(gid)s -d %(home)s -n %(user)s' # Fedora/RedHat
+ #
+diff --git a/py/mockbuild/buildroot.py b/py/mockbuild/buildroot.py
+index 063fdf5..8c8299e 100644
+--- a/py/mockbuild/buildroot.py
++++ b/py/mockbuild/buildroot.py
+@@ -48,9 +48,9 @@ class Buildroot(object):
+                         and util.selinuxEnabled())
+ 
+         self.chrootuid = config['chrootuid']
+-        self.chrootuser = 'mockbuild'
++        self.chrootuser = config['chrootuser']
+         self.chrootgid = config['chrootgid']
+-        self.chrootgroup = 'mockbuild'
++        self.chrootgroup = config['chrootgroup']
+         self.env = config['environment']
+         self.env['HOME'] = self.homedir
+         proxy_env = util.get_proxy_environment(config)
+diff --git a/py/mockbuild/util.py b/py/mockbuild/util.py
+index 8e87a28..c3b0838 100644
+--- a/py/mockbuild/util.py
++++ b/py/mockbuild/util.py
+@@ -723,6 +723,8 @@ def setup_default_config_opts(unprivUid, version, pkgpythondir):
+     except KeyError:
+         #  'mock' group doesn't exist, must set in config file
+         pass
++    config_opts['chrootgroup'] = 'mock'
++    config_opts['chrootuser'] = 'mockbuild'
+     config_opts['build_log_fmt_name'] = "unadorned"
+     config_opts['root_log_fmt_name'] = "detailed"
+     config_opts['state_log_fmt_name'] = "state"
