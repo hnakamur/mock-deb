@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. ${TESTDIR}/functions
+
+header "test mockchain partial failure"
+runcmd "$MOCKCHAIN -c ${TESTDIR}/*.src.rpm"
+res=$?
+
+if [ $res -ne 2 ]; then
+   echo "mockchain did not report partial failure when it should!"
+   exit 1
+fi
+exit 0

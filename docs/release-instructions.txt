@@ -1,0 +1,93 @@
+# Work in progress...
+
+A note on mock versions: 
+
+  There are now two main branches to be aware of:
+  	- mock-1.0 (pre-F13 and EPEL5)
+	- master (for releasing F-13+ and EPEL6+)
+    - devel (for development of future versions)
+  In the upstream git tree, mock-1.0 is tracked on the branch origin/mock-1.0,
+  while mock-1.1+ is in the master branch. Please be careful when
+  updating the various distro to use the correct branch and version
+  number when generating tarfiles for RPM generation.
+
+Note that we've now switched over to using git for the package
+repositories (as opposed to the old CVS repositories). To make use of
+the new format, you must install the fedora-packager package and clone
+the mock package repository:
+
+    $ sudo yum install fedora-packager
+    $ fedpkg clone mock
+    $ mv mock mock-fedora.git
+
+The last step is not strictly required, but I do it to keep from
+confusing the package repository with the upstream (source) repository
+
+=====================================================================
+
+Release checklist overview:
+
+0) change to the local master
+   $ git checkout master
+1) fetch git remotes and fast-forward your local master
+   $ git pull --rebase master
+2) merge any remote updates for specific fixes
+   $ git merge origin/devel
+3) install snapshot version
+   $ tito build --rpm -i
+4) run 'make check' and fix any reported failures until it passes
+   $ make check
+5) tag the git tree:
+   $ tito tag
+6) push to main git repo (only from master branch):
+   $ git push
+   $ git push --tags
+7) copy tarball to fedorahosted:
+   $ tito build --tgz
+   $ scp mock-<version>.tar.gz fedorahosted.org:/srv/web/releases/m/o/mock/
+8) merge changes back to devel branch
+   $ git checkout devel
+   $ git merge origin/master
+
+
+In the fedora git (koji) tree
+
+   1) cd to the previously cloned mock package repository
+       $ cd ../mock-fedora.git
+   2) change to the master branch:
+       $ fedpkg switch-branch master
+       	     or
+       $ git checkout master
+   3) upload the new source tarball from the upstream git tree
+       $ fedpkg new-sources ../mock.git/mock-<version>.tar.gz
+   4) copy in the new specfile that matches the tarball
+       $ cp ../mock.git/mock.spec .
+   5) commit and push the new sources
+       $ fedpkg commit --clog --push
+   6) initiate a koji build
+       $ fedpkg build --nowait
+   7) switch branches to the latest released fedora
+       $ fedpkg switch-branch f17
+              or
+       $ git checkout f17
+   8) merge master into the current release
+       $ git merge master
+      if there are conflicts, resolve and commit
+   9) push changes back to origin
+       $ fedpkg push
+   10) initiate a build for the branch
+       $ fedpkg build --nowait
+   11) repeat steps 8 and 9 for all supported fedora releases and EPEL releases
+      (e.g. f16, el6)
+
+Once the builds finish (successfully) you should push the just built
+packages to their respective testing repositories. This can be done
+either with the Bodhi WebUI at
+https://bodhi.fedoraproject.org/ or if there are no other
+package dependencies, using the 'fedpkg update' command. 
+Note that you do not need to do this for the master (rawhide) branch
+since it automatically gets pushed to testing.  
+
+
+
+
